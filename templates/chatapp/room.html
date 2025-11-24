@@ -1,15 +1,23 @@
+{% extends "base.html" %}
+
 {% load static %}
 
-{{ chatroom.name }}
+{% block body %}
+  {{ chatroom.name }}
 
-<form method="POST">
-  {% csrf_token %}
-  <input id="message-input" type="text" name="message" placeholder="Enter message">
-  <button id="send-btn" type="submit">Send</button>
-</form>
+  <form method="POST">
+    {% csrf_token %}
+    <input id="message-input" type="text" name="message" placeholder="Enter message">
+    <button id="send-btn" type="submit">Send</button>
+  </form>
 
-<div id="chat-messages"></div>
+  <div id="chat-messages">
+    {% for message in messages %}
+      {{ message.user.username }}: {{ message.message }} <br/>
+    {% endfor %}
+  </div>
 
-{{ chatroom.slug|json_script:"json-chatroomname" }}
-{{ request.user.username|json_script:"json-username" }}
-<script src="{% static 'js/connect.js' %}"></script>
+  {{ chatroom.slug|json_script:"json-chatroomname" }}
+  {{ request.user.username|json_script:"json-username" }}
+  <script src="{% static 'js/connect.js' %}"></script>
+{% endblock %}
