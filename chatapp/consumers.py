@@ -16,6 +16,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self):
         await self.channel_layer.group_discard(
-            self.channel_layer,
-            self.room_group_name
+            self.room_group_name,
+            self.channel_layer
         )

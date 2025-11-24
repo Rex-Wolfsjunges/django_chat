@@ -1,3 +1,5 @@
+{% load static %}
+
 {{ chatroom.name }}
 
 <form method="POST">
@@ -7,3 +9,4 @@
 </form>
 
 {{ chatroom.slug|json_script:"json-chatroomname" }}
+<script src="{% static 'js/connect.js' %}"></script>
