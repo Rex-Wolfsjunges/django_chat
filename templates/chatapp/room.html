@@ -3,18 +3,32 @@
 {% load static %}
 
 {% block body %}
-  {{ chatroom.name }}
+  <div class="m-10 font-bold">
+    {{ chatroom.name }}
+  </div>
 
-  <form method="POST">
-    {% csrf_token %}
-    <input id="message-input" type="text" name="message" placeholder="Enter message">
-    <button id="send-btn" type="submit">Send</button>
-  </form>
+  <div id="message-container" class="message-container m-10 overflow-auto h-[700px]">
+    <div id="chat-messages">
+      {% for message in messages %}
+        <div class="message shadow-lg p-3 m-3 rounded-lg w-1/2 bg-blue-200 ">
+          <div class="text-sm text-gray-500">
+            {{ message.user.username }}
+          </div>
+          {{ message.message }}
+          <div class="text-sm text-gray-500">
+            {{ message.created_at }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 
-  <div id="chat-messages">
-    {% for message in messages %}
-      {{ message.user.username }}: {{ message.message }} <br/>
-    {% endfor %}
+  <div class="form-container fixed inset-x-0 bottom-0 bg-blue-900 p-4">
+    <form method="POST">
+      {% csrf_token %}
+      <input class="rounded-md px-2 bg-white" id="message-input" type="text" name="message" placeholder="Enter message">
+      <button class="text-white ml-5" id="send-btn" type="submit">Send</button>
+    </form>
   </div>
 
   {{ chatroom.slug|json_script:"json-chatroomname" }}

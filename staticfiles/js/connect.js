@@ -10,12 +10,20 @@ const sendBtn = document.querySelector("#send-btn");
 chatSocket.onmessage = function (event) {
   const data = JSON.parse(event.data);
   if (data.message) {
-    let html = data.username + ": " +  data.message + "<br/>"
+    let html = '<div class="message shadow-lg p-3 m-3 rounded-lg w-1/2 bg-blue-200 ">' +
+      '<div class="text-sm text-gray-500">' +
+      data.username +
+      '</div>' +
+      data.message +
+      '<div class="text-sm text-gray-500">' + 'Now' + '</div>';
+
     const messagesDiv = document.querySelector("#chat-messages");
     messagesDiv.innerHTML += html;
   } else {
     alert("The message was empty!");
   }
+
+  scroll();
 }
 
 chatSocket.onclose = function (event) {
@@ -33,3 +41,10 @@ sendBtn.onclick = function(event) {
   }));
   messageInput.value = "";
 }
+
+function scroll() {
+  const messageContainer = document.querySelector("#message-container");
+  messageContainer.scrollTop = messageContainer.scrollHeight;
+}
+
+scroll();
