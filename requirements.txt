@@ -1,0 +1,7 @@
+channels
+daphne
+django
+gunicorn
+dj-database-url
+python-decouple
+whitenoise

@@ -1,0 +1,1 @@
+web: gunicorn django_chat.wsgi --log-file -
