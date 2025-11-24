@@ -4,9 +4,12 @@
 
 <form method="POST">
   {% csrf_token %}
-  <input type="text" name="message" placeholder="Enter message">
-  <button type="submit">Send</button>
+  <input id="message-input" type="text" name="message" placeholder="Enter message">
+  <button id="send-btn" type="submit">Send</button>
 </form>
 
+<div id="chat-messages"></div>
+
 {{ chatroom.slug|json_script:"json-chatroomname" }}
+{{ request.user.username|json_script:"json-username" }}
 <script src="{% static 'js/connect.js' %}"></script>
